@@ -33,4 +33,9 @@ public class PostService {
 		Flux<PostDTO> result = repository.fullSearch(text, minDate, maxDate).map(PostDTO::new);
 		return result;
 	}
+
+	public Flux<PostDTO> findByUserId(String userId) {
+		return repository.findByAuthorId(userId)
+				.map(PostDTO::new);
+	}
 }

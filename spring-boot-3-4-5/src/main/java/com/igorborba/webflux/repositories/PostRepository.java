@@ -18,4 +18,6 @@ public interface PostRepository extends ReactiveMongoRepository<Post, String> {
     @Query("{ $and: [ { date: {$gte: ?1} }, { date: { $lte: ?2} } , { $or: [ { 'title': { $regex: ?0, $options: 'i' } }, { 'body': { $regex: ?0, $options: 'i' } }, { 'comments.text': { $regex: ?0, $options: 'i' } } ] } ] }")
     Flux<Post> fullSearch(String text, Instant minDate, Instant maxDate);
 
+    @Query("{ 'author.id': ?0 }")
+    Flux<Post> findByAuthorId(String authorId);
 }
